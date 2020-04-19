@@ -37,22 +37,9 @@ def modify_file(line):
     if "end" in line:
         line = line.replace("end", "\nend")
     # Check commas and modify the string
-    for char in line:
-        if "," in line:
-            line = line.replace(",", ",\n")
-            break
+    if "," in line:
+        line = line.replace(",", ",\n")
     return line
-
-
-def write_file(line):
-    with open('modified.txt', 'w') as f1:
-        f1.writelines(line)
-
-
-def read_modified_file():
-    with open('modified.txt', 'r') as f2:
-        modified_lines = f2.read().splitlines()
-    return modified_lines
 
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -327,8 +314,7 @@ def write_parsed_file(A, b, c, Eqin, MinMax):
 def main():
     line = read_file()
     modified = modify_file(line)
-    write_file(modified)
-    modified_lines = read_modified_file()
+    modified_lines = modified.splitlines()
 
     range = global_range(modified_lines)
     passed1 = MinMax_before_OF(modified_lines)

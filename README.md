@@ -4,11 +4,11 @@ A Python script to check and parse a Linear Programming Problem of type:
 min/max z = c1x1 + c2x2 + … + cnxn
 st        a11x1 + a12x2 + … + anxn ⊗ b1,
           a21x1 + a22x2 + … + a2nxn ⊗ b2,
-                … … … ... … … … … …
+                … … … ... … … … … …      ,
           am1x1 + am2x2 + … + amnxn ⊗ bm
 end
           
-        ⊕ = {≤,=,≥}, c, x∈ℜn, b∈ℜm και A∈ℜmxn
+        ⊗ = {≤,=,≥}, c, x∈ℜn, b∈ℜm και A∈ℜmxn
 ```
 
 ## How to run

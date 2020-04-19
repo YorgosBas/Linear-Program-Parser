@@ -38,7 +38,7 @@ def modify_file(line):
         line = line.replace("end", "\nend")
     # Check commas and modify the string
     if "," in line:
-        line = line.replace(",", ",\n")
+        line = line.replace(",", "\n")
     return line
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -106,7 +106,7 @@ def signs_missing_from_of(modified_lines):
     for variables in range(len(of_range)):
         if variables == 0:
             matched = re.match("^([-+]?)((\d+(\.\d+)?)?)(\*?)x(\d+)", temp_group)
-        if variables != 0:
+        else:
             if temp_group[0] == "+":
                 matched = re.match("^\+((\d+(\.\d+)?)?)(\*?)x(\d+)", temp_group)
             elif temp_group[0] == "-":
@@ -224,7 +224,7 @@ def extract_constrain_coefficients(modified_lines, range1):
                         matched.insert(variables, +1)
                     temp_matched = re.findall("^[+-]?\d*\.{0,1}\d+", temp_group)
                     if bool(temp_matched):
-                        matched.append(temp_matched)
+                        matched.append(int(temp_matched[0]))
                         next_group_index = modified_lines[m].find(f"x{con_range[index]}") + len(con_range[index]) + 1
                         temp_group = modified_lines[m][next_group_index:]
                     else:
@@ -244,20 +244,14 @@ def extract_constrain_coefficients(modified_lines, range1):
 def extract_right_parts(modified_lines):
     list = []
     for m in range(3, len(modified_lines) - 1):
-        if re.findall(">=", modified_lines[m]):
-            index = modified_lines[m].find("=")
-        elif re.findall("=", modified_lines[m]):
-            index = modified_lines[m].find("=")
-        elif re.findall("<=", modified_lines[m]):
-            index = modified_lines[m].find("=")
+        index = modified_lines[m].find("=")
         right_part = modified_lines[m][index + 1:]
-        list.append(right_part)
+        list.append(int(right_part))
     return list
 
 
 # Extract coefficients from objective function
 def extract_of_coefficients(modified_lines, range1):
-    list = []
     of_range = objective_function_range(modified_lines)
     matched = []
     variables = 0
@@ -273,9 +267,9 @@ def extract_of_coefficients(modified_lines, range1):
                     matched.insert(variables, -1)
                 if temp_group[0] == "+" and temp_group[1] == "x":
                     matched.insert(variables, +1)
-                temp_matched = re.findall("^[+-]?\d*\.{0,1}\d+", temp_group)
+                temp_matched = re.findall("^[+-]?\d*\.?\d+", temp_group)
                 if bool(temp_matched):
-                    matched.append(temp_matched)
+                    matched.append(int(temp_matched[0]))
                     next_group_index = modified_lines[1].find(f"x{of_range[index]}") + len(of_range[index]) + 1
                     temp_group = modified_lines[1][next_group_index:]
                 else:
@@ -287,8 +281,7 @@ def extract_of_coefficients(modified_lines, range1):
         except IndexError:
             matched.append(0)
         variables = variables + 1
-    list.append(matched)
-    return list
+    return matched
 
 # Extract the symbols from the constrains
 def extract_constrain_symbols(modified_lines):
@@ -303,11 +296,11 @@ def extract_constrain_symbols(modified_lines):
     return list
 
 def write_parsed_file(A, b, c, Eqin, MinMax):
-    A = '\n'.join('constrain {}: {}'.format(*k) for k in enumerate(A))
-    b = '\n'.join('constrain {}: {}'.format(*k) for k in enumerate(b))
-    Eqin = '\n'.join('constrain {}: {}'.format(*k) for k in enumerate(Eqin))
+    A = '\n'.join('constraint {}: {}'.format(*k) for k in enumerate(A))
+    b = '\n'.join('constraint {}: {}'.format(*k) for k in enumerate(b))
+    Eqin = '\n'.join('constraint {}: {}'.format(*k) for k in enumerate(Eqin))
     with open('parsed_file.txt', 'w') as f3:
-        f3.write(f"A=\n{A}\nb=\n{b}\nc=\n{c}\nEqin=\n{Eqin}\nMinMax= {MinMax}\n")
+        f3.write(f"A=\n{A}\nb=\n{b}\nc=\n{c}\nEqin=\n{Eqin}\nMinMax=\n{MinMax}\n")
 
 #-----------------------------------------------------------------------------------------------------------------------
 

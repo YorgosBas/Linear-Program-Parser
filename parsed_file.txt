@@ -1,21 +1,22 @@
 A=
-constrain 0: [1, -1, 0, 0, 0, 0, 0, 0, 0, -1, ['+1'], 0, ['+213']]
-constrain 1: [0, 0, 0, ['-3'], 0, 0, 0, 0, 0, 0, 0, 0, 0]
-constrain 2: [['2'], ['-2'], 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-constrain 3: [['132'], ['+123'], -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
-constrain 4: [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+constraint 0: [1, -1, 0, 0, 0, 0, 0, 0, 0, -1, 1, 0, 213]
+constraint 1: [0, 0, 0, -3, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+constraint 2: [2, -2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+constraint 3: [132, 123, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+constraint 4: [0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 b=
-constrain 0: -8,
-constrain 1: 9,
-constrain 2: 8,
-constrain 3: -24,
-constrain 4: -2
+constraint 0: -8
+constraint 1: 9
+constraint 2: 8
+constraint 3: -24
+constraint 4: -2
 c=
-[[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, ['1231'], 0, 0]]
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1231, 0, 0]
 Eqin=
-constrain 0: 0
-constrain 1: 1
-constrain 2: -1
-constrain 3: 0
-constrain 4: 1
-MinMax= [-1]
+constraint 0: 0
+constraint 1: 1
+constraint 2: -1
+constraint 3: 0
+constraint 4: 1
+MinMax=
+[-1]

@@ -18,7 +18,5 @@ end
 
 ## How it works
 1. Removes special characters and spaces
-2. Checks if linear program is specified correctly
-3. Checks if signs or symbols are missing from the linear program
-4. Creates a "modified.txt" with the correct linear program format
-5. Parses data into matrices
+2. Checks if linear program is specified correctly and nothing necessary is missing
+3. Parses data into matrices
